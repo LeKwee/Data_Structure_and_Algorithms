@@ -1,87 +1,109 @@
+# each node will have at most 2 child nodes
+# right child node will be larger than parent and left will be smaller
+
 class Node():
-    def __init__(self, val=None):
-        self.val = val
+    def __init__(self, value):
+        self.value = value
         self.left = None
         self.right = None
 
 class Binary_tree():
     def __init__(self):
         self.root = None
-        self.space_step = 10
+        self.space = 10
 
-    def insert(self, val):
+    def insert(self, value):
         if self.root == None:
-            self.root = Node(val)
+            self.root = Node(value)
         else:
-            self.__insert(val,self.root)
-
-    def __insert(self, val, curr_node):
-        if val < curr_node.val:
-            if curr_node.left == None:
-                curr_node.left = Node(val)
-            else:
-                self.__insert(val, curr_node.left)
-        elif val > curr_node.val:
-            if curr_node.right == None:
-                curr_node.right = Node(val)
-            else:
-                self.__insert(val,curr_node.right) 
+            self.__insert(self.root, value)
     
-    def show(self):
+    def __insert(self, curr, value):
+        if value > curr.value:
+            if curr.right == None:
+                curr.right =  Node(value)
+            else:
+                self.__insert(curr.right, value)
+        elif value < curr.value:
+            if curr.left ==  None:
+                curr.left = Node(value)
+            else:
+                self.__insert(curr.left, value)
+        else:
+            print(f'Value {value} is already in tree')
+
+    def print_tree(self):
         if self.root == None:
-            return
+            print("Empty tree")
+        else:
+            self.__print_tree(self.root,0)
 
-        self.__show(self.root, 0)
         
-    def __show(self, curr_node, space):
-        if curr_node == None:
+    def __print_tree(self, curr, space):
+        if curr == None:
             return
-
-        space += self.space_step
-        self.__show(curr_node.right, space)
+        space += self.space
+        self.__print_tree(curr.right, space)
 
         print()
         for _ in range(space):
-            print(end=" ")
-        print (curr_node.val)
+            print(end=' ')
+        print(curr.value)
 
-        self.__show(curr_node.left, space)
-    
-    def height(self):
-        if self.root == None:
-            return 0
+        self.__print_tree(curr.left,space)
+
+    def get_height(self):
+        if self.root==None:
+            print('Empty tree')
         else:
-            return self.__height(self.root, 0)
+            print(f'Tree height: {self.__get_height(self.root,0)}')
+
+    def __get_height(self, curr, curr_height):
+        if curr == None:
+            return curr_height
+        right_height = self.__get_height(curr.right, curr_height+1)
+        left_height = self.__get_height(curr.left, curr_height+1)
+        return max(right_height, left_height)
     
-    def __height(self, curr_node, height):
-        if curr_node == None:
-            return height
-        left_height = self.__height(curr_node.left, height+1)
-        right_height = self.__height(curr_node.right, height+1)
-        return max(left_height, right_height)
-
-    def search(self, val):
-        if self.root == None:
-            return False
+    def search(self, value):
+        if self.root != None:
+            return self.__search(value, self.root)
         else:
-            return self.__search(self.root, val)
-
-    def __search(self, curr_node, val):
-        if curr_node== None:
             return False
-        if curr_node.val == val:
+    
+    def __search(self, value, curr):
+        if curr.value == value:
             return True
-        elif curr_node.val > val:
-            return self.__search(curr_node.left, val)
-        elif curr_node.val < val:
-            return self.__search(curr_node.left, val)
+        elif value > curr.value and curr.right !=None:
+            return self.__search(value, curr.right)
+        elif value < curr.value and curr.left !=None:
+            return self.__search(value, curr.left)
+        else:
+            return False
 
+def fill_tree(tree, num_ele = 20):
+    from random import randint
+    for _ in range(num_ele):
+        tree.insert(randint(0,50))
+    return tree
 
 tree = Binary_tree()
-from random import randint
-for _ in range(20):
-    tree.insert(randint(5,50))
+fill_tree(tree)
+tree.print_tree()
+tree.get_height()
 
-tree.show()
-print(tree.height())
-print(tree.search(22))
+tree2 = Binary_tree()
+tree2.insert(5)
+tree2.insert(1)
+tree2.insert(6)
+tree2.insert(2)
+tree2.insert(3)
+tree2.insert(10)
+tree2.insert(14)
+tree2.insert(4)
+tree2.insert(12)
+tree2.print_tree()
+tree2.get_height()
+value = 11
+if tree2.search(value):
+    print(f'Value: {value} exist in tree')

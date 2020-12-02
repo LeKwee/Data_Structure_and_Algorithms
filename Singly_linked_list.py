@@ -1,69 +1,91 @@
 class Node():
-    def __init__(self, val=None):
-        self.val = val
+    def __init__(self, data=None):
+        self.data = data
         self.next = None
 
-class Singly_Linked_list():
+class Linked_list():
     def __init__(self):
-        self.head = None
+        self.head = Node()
         self.len = 0
 
-    def add(self, val):
-        if self.head == None:
-            self.head = Node(val)
-        else:
-            curr = self.head
-            while curr.next != None:
-                curr = curr.next
-            curr.next = Node(val)
-        self.len +=1
+    def append(self, data):
+        new_node = Node(data)
+        cur_node = self.head
+        while cur_node.next!=None:
+            cur_node = cur_node.next
+        cur_node.next = new_node
+        self.len += 1
 
-    def show(self):
-        curr = self.head
-        while curr != None:
-            print(curr.val)
-            curr = curr.next
+    def display(self):
+        items = []
+        cur_node = self.head
+        while cur_node.next != None:
+            cur_node = cur_node.next
+            items.append(cur_node.data)
+        print(items)
+    
+    def getLen(self):
+        print('Number of elements in linked-list: %d'% self.len)
 
-    def remove(self, index):
-        assert index <= self.len-1, "Index out of range!"
-        if index == 0:
-            self.head = self.head.next
-        prev = self.head
-        curr = self.head
+    def erase(self, index):
+        if index >= self.len:
+            print('Erase index out of range')
+            return
+        
         count = 0
-        while count != index:
-            prev = curr
-            curr = curr.next
-            count +=1
-        prev.next = curr.next
-        self.len -=1
+        cur_node = self.head
+        
+        while True:
+            previous_node = cur_node
+            cur_node=cur_node.next
+            if count == index:
+                previous_node.next = cur_node.next
+                self.len-=1
+                return
+            count+=1
 
     def reverse(self):
-        if self.len == 0:
-            return None
-        elif self.len == 1:
-            return self.head
-        
         prev = None
-        curr = self.head
-        while curr != None:
-            nex = curr.next
+        curr = self.head.next
+        while (curr != None):
+            next = curr.next
             curr.next = prev
             prev = curr
-            curr = nex
-        self.head = prev
+            curr = next
+        self.head = Node()
+        self.head.next = prev
 
-a = Singly_Linked_list()
+    def getIndex(self, index):
+        if index >= self.len:
+            print('Get index out of range')
+            return
+        count = 0
+        curr =  self.head
+        while True:
+            curr=curr.next
+            if count == index:
+                return curr.data
+            count+=1
+        
 
-from random import randint
+def test_append():
+    linked_list = Linked_list()
+    linked_list.append('a')
+    assert linked_list.getIndex(0) == 'a', "Append index[0] failed"
+    linked_list.append('b')
+    assert linked_list.getIndex(1) == 'b', "Append index[0] failed"
+    print("Test append succeeded!")
 
-for _ in range(10):
-    a.add(randint(0,50))
+def test_erase():
+    linked_list = Linked_list()
+    linked_list.append('a')
+    linked_list.append('b')
+    linked_list.append('c')
+    linked_list.append('d')
+    linked_list.erase(1)
+    assert linked_list.getIndex(1)=='c', f"Erase index one failed. Suppose to be 'c' but is {linked_list.getIndex(1)}"
+    print("Test erase succeeded!")
 
-a.show()
-print()
-a.remove(5)
-a.show()
-print()
-a.reverse()
-a.show()
+if __name__ == "__main__":
+    test_append()
+    test_erase()
