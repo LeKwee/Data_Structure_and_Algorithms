@@ -22,11 +22,16 @@ def getGridVal(grid, index):
 
 from queue import Queue
 def BFS(grid, start, end):
+    '''
+    1. For each neighbour starting from "start", create new path from start to neighbour 
+    2. Add path to queue
+    3. Pop first in queue and repeat step 1 and 2 until end node is found. 
+    '''
     if start == end:
         return start
 
-    R = len(grid)
-    C = len(grid[0])
+    row = len(grid)
+    col = len(grid[0])
     visited = []
     q = Queue()
     q.put([start])
@@ -38,9 +43,10 @@ def BFS(grid, start, end):
         if node not in visited:
             visited.append(node)
             print(f'visited: {visited}')
-            neighbours = getNeighbours(grid, node, R, C, visited)
+            neighbours = getNeighbours(grid, node, row, col, visited)
             for neighbour in neighbours:
                 print(f'neighbour: {neighbour}')
+                # creates new path from start for every neighbour
                 new_path = path
                 new_path.append(neighbour)
                 print(f'new_path: {new_path}')
@@ -53,6 +59,9 @@ def BFS(grid, start, end):
     print(visited)
 
 def getNeighbours(grid, node, R , C, visited):
+    '''
+    Appends all neighbours of node, if they have not been visited, into a list and return list.
+    '''
     neighbours = []
     # move left
     if node[1] > 0:
