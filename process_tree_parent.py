@@ -7,8 +7,19 @@ def findParent(num):
             if curr_max == num:
                 return i
 
+def findParent_math(num):
+    import math
+    if num == 1:
+        return None
+    # num * (num+1)/2+1 ==  largest value belong to num parent
+    parent = (math.sqrt((num-1)*2*4+1)-1)//2
+    if num > (parent * (parent+1)/2)+1:
+        return parent+1
+    else:
+        return parent
+
 def testcase(num, ans):
-    pred = findParent(num)
+    pred = findParent_math(num)
     assert pred == ans, f'Pred: {pred}, Correct Ans: {ans}'
     print("Test Successful!")
 
@@ -37,4 +48,5 @@ if __name__ == '__main__':
     testcase(10,4)
     testcase(11,4)
     testcase(12,5)
+    testcase(47,10)
 
