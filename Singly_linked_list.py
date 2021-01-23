@@ -86,6 +86,18 @@ def test_erase():
     assert linked_list.getIndex(1)=='c', f"Erase index one failed. Suppose to be 'c' but is {linked_list.getIndex(1)}"
     print("Test erase succeeded!")
 
+def test_reverse(Llist):
+    Llist.reverse()
+    Llist.display()
+
+
 if __name__ == "__main__":
     test_append()
     test_erase()
+
+    linked_list = Linked_list()
+    linked_list.append('a')
+    linked_list.append('b')
+    linked_list.append('c')
+    linked_list.append('d')
+    test_reverse(linked_list)

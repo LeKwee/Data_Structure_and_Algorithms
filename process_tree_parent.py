@@ -1,7 +1,7 @@
 def findParent(num):
     curr_max=1
     for i in range (1,num+1):
-        for j in range (i):
+        for _ in range (i):
             start = max(curr_max, i)
             curr_max= start+1
             if curr_max == num:
@@ -19,7 +19,7 @@ def findParent_math(num):
         return parent
 
 def testcase(num, ans):
-    pred = findParent_math(num)
+    pred = findParent(num)
     assert pred == ans, f'Pred: {pred}, Correct Ans: {ans}'
     print("Test Successful!")
 
@@ -49,4 +49,6 @@ if __name__ == '__main__':
     testcase(11,4)
     testcase(12,5)
     testcase(47,10)
+    print(findParent(67))
+    print(findParent_math(67))
 
