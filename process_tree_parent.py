@@ -2,8 +2,9 @@ def findParent(num):
     curr_max=1
     for i in range (1,num+1):
         for _ in range (i):
-            start = max(curr_max, i)
-            curr_max= start+1
+            #start = max(curr_max, i)
+            #curr_max= start+1
+            curr_max+=1
             if curr_max == num:
                 return i
 
