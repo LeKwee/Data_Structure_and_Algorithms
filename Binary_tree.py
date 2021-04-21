@@ -87,23 +87,24 @@ def fill_tree(tree, num_ele = 20):
         tree.insert(randint(0,50))
     return tree
 
-tree = Binary_tree()
-fill_tree(tree)
-tree.print_tree()
-tree.get_height()
+if __name__ == '__main__':
+    tree = Binary_tree()
+    fill_tree(tree)
+    tree.print_tree()
+    tree.get_height()
 
-tree2 = Binary_tree()
-tree2.insert(5)
-tree2.insert(1)
-tree2.insert(6)
-tree2.insert(2)
-tree2.insert(3)
-tree2.insert(10)
-tree2.insert(14)
-tree2.insert(4)
-tree2.insert(12)
-tree2.print_tree()
-tree2.get_height()
-value = 11
-if tree2.search(value):
-    print(f'Value: {value} exist in tree')
+    tree2 = Binary_tree()
+    tree2.insert(5)
+    tree2.insert(1)
+    tree2.insert(6)
+    tree2.insert(2)
+    tree2.insert(3)
+    tree2.insert(10)
+    tree2.insert(14)
+    tree2.insert(4)
+    tree2.insert(12)
+    tree2.print_tree()
+    tree2.get_height()
+    value = 11
+    if tree2.search(value):
+        print(f'Value: {value} exist in tree')
