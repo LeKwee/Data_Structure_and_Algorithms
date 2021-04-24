@@ -33,8 +33,12 @@ Methoh 1
 '''
 Methoh 2
 '''
-for i in range(1,101):
-    fizz = 'Fizz' if i%3==0 else ''
-    buzz = 'Buzz' if i%5==0 else ''
-    print(f'{i} {fizz}{buzz}')
+# for i in range(1,101):
+#     fizz = 'Fizz' if i%3==0 else ''
+#     buzz = 'Buzz' if i%5==0 else ''
+#     print(f'{i} {fizz}{buzz}')
 
+'''
+Method 3
+'''
+[print("Fizz"*(not i%3) + "Buzz"*(not i%5)) or print(i) for i in range(1, 100)]
