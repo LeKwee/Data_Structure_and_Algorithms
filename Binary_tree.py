@@ -8,8 +8,8 @@ class Node():
         self.right = None
 
 class Binary_tree():
-    def __init__(self):
-        self.root = None
+    def __init__(self, root=None):
+        self.root = root
         self.space = 10
 
     def insert(self, value):
